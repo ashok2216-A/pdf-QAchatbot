@@ -3,8 +3,8 @@ import streamlit as st
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 # Load pre-trained GPT-3 model and tokenizer
-tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-125M")
-model = GPT2LMHeadModel.from_pretrained("EleutherAI/gpt-neo-125M")
+tokenizer = GPT2Tokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B")
+model = GPT2LMHeadModel.from_pretrained("meta-llama/Meta-Llama-3-8B")
 
 def extract_text_from_pdf(pdf_path):
     text = ""
