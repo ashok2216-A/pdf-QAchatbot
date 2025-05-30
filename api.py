@@ -21,6 +21,7 @@ class ImageRequest(BaseModel):
     prompt: str = "What's in this image?"
     api_key: str
 
+
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):    
     headers = {
@@ -48,12 +49,12 @@ async def chat_endpoint(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.post("/vision")
 async def vision_endpoint(request: ImageRequest):
     try:
         # Create Mistral client with user's API key
-        mistral_client = Mistral(api_key=request.api_key)
-        
+        client = Mistral(api_key=request.api_key)
         messages = [
             {
                 "role": "user",
@@ -65,16 +66,12 @@ async def vision_endpoint(request: ImageRequest):
                     {
                         "type": "image_url",
                         "image_url": f"data:image/jpeg;base64,{request.image}"
-                    }
-                ]
-            }
-        ]
+                    }]}]
         
-        chat_response = mistral_client.chat.complete(
-            model="pixtral-12b-2409",
+        chat_response = client.chat.complete(
+            model="pixtral-12b-2409",  # Model that supports vision
             messages=messages
         )
-        
         return {"response": chat_response.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
