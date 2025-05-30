@@ -34,10 +34,10 @@ async def chat_endpoint(request: ChatRequest):
     payload = {
         "model": "mistral-small-latest",
         "messages": [
-            {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided context."},
+            {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided context. If the user asks about images, respond with: 'Please specify the image topic."},
             {"role": "user", "content": full_prompt}
         ],
-        "temperature": 0.7,
+        "temperature": 0.3,
         "max_tokens": 500
     }
     
